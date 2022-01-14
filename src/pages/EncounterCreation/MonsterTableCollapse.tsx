@@ -2,21 +2,24 @@ import Monster from "../../types/Monster";
 import {
   Box,
   Card,
-  Button,
+  IconButton,
   CardContent,
   CardActions,
   Grid,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
+import { EncounterCreationContext } from "../../context/EncounterCreationContext";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 interface Props {
   monsters: Monster[];
 }
 const MonsterTableCollapse = ({ monsters }: Props) => {
+  const { dispatch } = useContext(EncounterCreationContext);
   return (
     <>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{ mb: 10 }}>
         {monsters.map((monster: Monster) => {
           return (
             <React.Fragment key={monster.name}>
@@ -25,7 +28,7 @@ const MonsterTableCollapse = ({ monsters }: Props) => {
                   <Card>
                     <CardContent>
                       <Grid container>
-                        <Grid item xs={8}>
+                        <Grid item xs={11}>
                           <Typography gutterBottom variant="h6" component="div">
                             {monster.name}
                           </Typography>
@@ -36,11 +39,20 @@ const MonsterTableCollapse = ({ monsters }: Props) => {
                             {`${monster.source} page ${monster.page}`}
                           </Typography>
                         </Grid>
+                        <Grid item xs={1}>
+                          <IconButton
+                            color="primary"
+                            aria-label="add monster"
+                            component="span"
+                            onClick={() =>
+                              dispatch({ type: "addMonster", payload: monster })
+                            }
+                          >
+                            <AddCircleOutlineIcon />
+                          </IconButton>
+                        </Grid>
                       </Grid>
                     </CardContent>
-                    <CardActions>
-                      <Button size="small">Add</Button>
-                    </CardActions>
                   </Card>
                 </Box>
               </Grid>

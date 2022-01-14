@@ -6,6 +6,8 @@ import {
   CardHeader,
   CardContent,
   Typography,
+  CardActions,
+  Button,
 } from "@mui/material";
 import { useState, useContext } from "react";
 import MonsterTable from "./MonsterTable";
@@ -15,12 +17,15 @@ import Monster from "../../types/Monster";
 import MonsterCards from "./MonsterCards";
 import { EncounterCreationContext } from "../../context/EncounterCreationContext";
 import MobileDrawer from "../../components/MobileDrawer";
+import MonsterTableCollapse from "./MonsterTableCollapse";
+import { AlertContext } from "../../context/AlertContext";
 
 const initialState = monsters;
 
 const EncounterCreation = () => {
   const [rows, setRows] = useState<Monster[]>(initialState);
-  const { state } = useContext(EncounterCreationContext);
+  const { state, dispatch } = useContext(EncounterCreationContext);
+  const { openAlert } = useContext(AlertContext);
 
   const requestSearch = (searchedVal: string) => {
     if (searchedVal) {
@@ -33,8 +38,6 @@ const EncounterCreation = () => {
     }
   };
 
-  console.log(state);
-
   return (
     <Grid
       container
@@ -44,16 +47,33 @@ const EncounterCreation = () => {
     >
       <Grid item lg={6} xs={12}>
         <Card sx={{ textAlign: "left", mb: 3 }}>
-          <CardHeader title="Current Encounter" />
           <CardContent>
             <Typography>Party Level:</Typography>
             <Typography>Party Size :</Typography>
           </CardContent>
+          <CardActions>
+            <Button
+              onClick={() => {
+                dispatch({ type: "reset" });
+                openAlert("Encounter reset");
+              }}
+            >
+              Reset
+            </Button>
+            <Button
+              onClick={() => {
+                // dispatch({ type: "reset" });
+                openAlert("Encounter saved");
+              }}
+            >
+              Save
+            </Button>
+          </CardActions>
         </Card>
-        <Hidden mdDown>
+        <Hidden lgDown>
           <MonsterCards />
         </Hidden>
-        <Hidden mdUp>
+        <Hidden lgUp>
           <MobileDrawer message={`Encounter Size: ${state.encounter.length}`}>
             <MonsterCards />
           </MobileDrawer>
@@ -69,7 +89,12 @@ const EncounterCreation = () => {
             }}
             onChange={(e) => requestSearch(e.target.value)}
           />
-          <MonsterTable monsters={rows} />
+          <Hidden smDown>
+            <MonsterTable monsters={rows} />
+          </Hidden>
+          <Hidden smUp>
+            <MonsterTableCollapse monsters={rows} />
+          </Hidden>
         </Grid>
       </Grid>
     </Grid>
