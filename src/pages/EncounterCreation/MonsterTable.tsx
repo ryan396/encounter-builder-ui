@@ -17,6 +17,7 @@ import {
 import Monster from "../../types/Monster";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { EncounterCreationContext } from "../../context/EncounterCreationContext";
+import { AlertContext } from "../../context/AlertContext";
 
 interface Props {
   monsters: Monster[];
@@ -40,6 +41,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const MonsterTable = ({ monsters }: Props) => {
   const { dispatch } = useContext(EncounterCreationContext);
+  const { openAlert } = useContext(AlertContext);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -102,7 +104,10 @@ const MonsterTable = ({ monsters }: Props) => {
                   color="primary"
                   aria-label="add monster"
                   component="span"
-                  onClick={() => dispatch({ type: "addMonster", payload: row })}
+                  onClick={() => {
+                    openAlert("Monster saved to encounter");
+                    dispatch({ type: "addMonster", payload: row });
+                  }}
                 >
                   <AddCircleOutlineIcon />
                 </IconButton>

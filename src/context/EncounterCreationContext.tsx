@@ -1,8 +1,11 @@
 import { createContext, useReducer } from "react";
 import Monster from "../types/Monster";
 
+type encounter = Monster[];
+
 type State = {
-  encounter: Monster[];
+  encounter: encounter;
+  myEncounterList: encounter[];
 };
 
 type ContextValues = {
@@ -12,6 +15,7 @@ type ContextValues = {
 
 const initialEncounter: State = {
   encounter: [],
+  myEncounterList: [],
 };
 
 const addMonster = (monster: Monster, state: State) => {
@@ -25,13 +29,13 @@ const addMonster = (monster: Monster, state: State) => {
   } else {
     selectedMonster.quantity++;
   }
-  return { encounter: newState };
+  return { encounter: newState, myEncounterList: state.myEncounterList };
 };
 
 const removeMonster = (monster: Monster, state: State) => {
   let index = state.encounter.findIndex((item) => item.name == monster.name);
   state.encounter.splice(index, 1);
-  return { encounter: state.encounter };
+  return { encounter: state.encounter, myEncounterList: state.myEncounterList };
 };
 
 const increment = (monster: Monster, state: State) => {
@@ -39,7 +43,7 @@ const increment = (monster: Monster, state: State) => {
     (item) => item.name === monster.name
   );
   selectedMonster && selectedMonster.quantity++;
-  return { encounter: state.encounter };
+  return { encounter: state.encounter, myEncounterList: state.myEncounterList };
 };
 
 const decrement = (monster: Monster, state: State) => {
@@ -56,7 +60,14 @@ const decrement = (monster: Monster, state: State) => {
       state.encounter.splice(index, 1);
     }
   }
-  return { encounter: state.encounter };
+  return { encounter: state.encounter, myEncounterList: state.myEncounterList };
+};
+
+const saveEncounter = (encounter: Monster[], state: State) => {
+  return {
+    encounter: state.encounter,
+    myEncounterList: state.myEncounterList.concat(encounter),
+  };
 };
 
 const reset = () => {
@@ -73,6 +84,8 @@ const reducer = (state: State, action: any) => {
       return increment(action.payload, state);
     case "decrement":
       return decrement(action.payload, state);
+    case "saveEncounter":
+      return saveEncounter(action.payload, state);
     case "reset":
       return reset();
     default:

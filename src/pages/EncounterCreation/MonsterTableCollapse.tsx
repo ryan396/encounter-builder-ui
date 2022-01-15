@@ -4,19 +4,21 @@ import {
   Card,
   IconButton,
   CardContent,
-  CardActions,
   Grid,
   Typography,
 } from "@mui/material";
 import React, { useContext } from "react";
 import { EncounterCreationContext } from "../../context/EncounterCreationContext";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { AlertContext } from "../../context/AlertContext";
 
 interface Props {
   monsters: Monster[];
 }
 const MonsterTableCollapse = ({ monsters }: Props) => {
   const { dispatch } = useContext(EncounterCreationContext);
+  const { openAlert } = useContext(AlertContext);
+
   return (
     <>
       <Grid container spacing={3} sx={{ mb: 10 }}>
@@ -44,9 +46,13 @@ const MonsterTableCollapse = ({ monsters }: Props) => {
                             color="primary"
                             aria-label="add monster"
                             component="span"
-                            onClick={() =>
-                              dispatch({ type: "addMonster", payload: monster })
-                            }
+                            onClick={() => {
+                              openAlert("Monster saved to encounter");
+                              dispatch({
+                                type: "addMonster",
+                                payload: monster,
+                              });
+                            }}
                           >
                             <AddCircleOutlineIcon />
                           </IconButton>
