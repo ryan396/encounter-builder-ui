@@ -61,7 +61,7 @@ const EncounterCreation = () => {
             </Button>
             <Button
               onClick={() => {
-                // dispatch({ type: "reset" });
+                dispatch({ type: "saveEncounter" });
                 openAlert("Encounter saved");
               }}
             >

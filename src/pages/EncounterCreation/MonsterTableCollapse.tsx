@@ -6,8 +6,10 @@ import {
   CardContent,
   Grid,
   Typography,
+  Pagination,
+  Stack,
 } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { EncounterCreationContext } from "../../context/EncounterCreationContext";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AlertContext } from "../../context/AlertContext";
@@ -18,13 +20,32 @@ interface Props {
 const MonsterTableCollapse = ({ monsters }: Props) => {
   const { dispatch } = useContext(EncounterCreationContext);
   const { openAlert } = useContext(AlertContext);
+  const [shownMonsters, setShownMonsters] = useState<Monster[]>(
+    monsters.slice(0, 5)
+  );
+
+  const [page, setPage] = useState(1);
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    if (value > 1) {
+      const currentPage = value;
+      setPage(value);
+      const startIndex = currentPage * 5 - 5;
+      const endIndex = startIndex + 5;
+      let newMonsters = [...monsters];
+      setShownMonsters(newMonsters.slice(startIndex, endIndex));
+    } else {
+      setPage(1);
+      let newMonsters = [...monsters];
+      setShownMonsters(newMonsters.slice(0, 5));
+    }
+  };
 
   return (
-    <>
+    <Box>
       <Grid container spacing={3} sx={{ mb: 10 }}>
-        {monsters.map((monster: Monster) => {
+        {shownMonsters.map((monster: Monster, i) => {
           return (
-            <React.Fragment key={monster.name}>
+            <React.Fragment key={i}>
               <Grid item xs={12}>
                 <Box sx={{ textAlign: "left" }}>
                   <Card>
@@ -65,8 +86,20 @@ const MonsterTableCollapse = ({ monsters }: Props) => {
             </React.Fragment>
           );
         })}
+        <Grid item xs={12}>
+          <Stack sx={{ alignItems: "center" }}>
+            <Pagination
+              variant="outlined"
+              shape="rounded"
+              color="primary"
+              page={page}
+              count={Math.round(monsters.length / 5)}
+              onChange={handleChange}
+            />
+          </Stack>
+        </Grid>
       </Grid>
-    </>
+    </Box>
   );
 };
 

@@ -63,10 +63,10 @@ const decrement = (monster: Monster, state: State) => {
   return { encounter: state.encounter, myEncounterList: state.myEncounterList };
 };
 
-const saveEncounter = (encounter: Monster[], state: State) => {
+const saveEncounter = (state: State) => {
   return {
-    encounter: state.encounter,
-    myEncounterList: state.myEncounterList.concat(encounter),
+    encounter: [],
+    myEncounterList: state.myEncounterList.concat(state.encounter),
   };
 };
 
@@ -85,7 +85,7 @@ const reducer = (state: State, action: any) => {
     case "decrement":
       return decrement(action.payload, state);
     case "saveEncounter":
-      return saveEncounter(action.payload, state);
+      return saveEncounter(state);
     case "reset":
       return reset();
     default:
