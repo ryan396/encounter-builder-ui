@@ -1,15 +1,17 @@
 import { useContext, useState } from "react";
-import TablePaginationActions from "../../components/TablePaginationActions";
+import {
+  TablePaginationActions,
+  StyledTableCell,
+  StyledTableRow,
+} from "../../components/TableElements";
 import {
   IconButton,
-  styled,
   TableFooter,
   TablePagination,
   Paper,
   TableHead,
   TableContainer,
   TableRow,
-  tableCellClasses,
   TableBody,
   Table,
   TableCell,
@@ -22,22 +24,6 @@ import { AlertContext } from "../../context/AlertContext";
 interface Props {
   monsters: Monster[];
 }
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
 
 const MonsterTable = ({ monsters }: Props) => {
   const { dispatch } = useContext(EncounterCreationContext);
@@ -63,6 +49,7 @@ const MonsterTable = ({ monsters }: Props) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   return (
     <TableContainer component={Paper} sx={{ mb: 10 }}>
       <Table aria-label="monster table">
