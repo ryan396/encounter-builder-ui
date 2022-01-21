@@ -5,6 +5,7 @@ import {
   TableRow,
   TableBody,
   Table,
+  Hidden,
 } from "@mui/material";
 import {
   StyledTableCell,
@@ -18,7 +19,7 @@ interface Props {
 
 const EncounterTable = ({ monsters }: Props) => {
   return (
-    <TableContainer component={Paper} sx={{ mb: 10 }}>
+    <TableContainer component={Paper} sx={{ mb: 5 }}>
       <Table aria-label="monster table">
         <TableHead>
           <TableRow>
@@ -27,8 +28,10 @@ const EncounterTable = ({ monsters }: Props) => {
             <StyledTableCell align="right">Role</StyledTableCell>
             <StyledTableCell align="right">Size</StyledTableCell>
             <StyledTableCell align="right">Type</StyledTableCell>
-            <StyledTableCell align="right">Source</StyledTableCell>
-            <StyledTableCell align="right">Page</StyledTableCell>
+            <Hidden smDown>
+              <StyledTableCell align="right">Source</StyledTableCell>
+              <StyledTableCell align="right">Page</StyledTableCell>
+            </Hidden>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -44,8 +47,10 @@ const EncounterTable = ({ monsters }: Props) => {
               <StyledTableCell align="right">{row.role}</StyledTableCell>
               <StyledTableCell align="right">{row.size}</StyledTableCell>
               <StyledTableCell align="right">{row.type}</StyledTableCell>
-              <StyledTableCell align="right">{row.source}</StyledTableCell>
-              <StyledTableCell align="right">{row.page}</StyledTableCell>
+              <Hidden smDown>
+                <StyledTableCell align="right">{row.source}</StyledTableCell>
+                <StyledTableCell align="right">{row.page}</StyledTableCell>
+              </Hidden>
             </StyledTableRow>
           ))}
         </TableBody>

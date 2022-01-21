@@ -64,9 +64,11 @@ const decrement = (monster: Monster, state: State) => {
 };
 
 const saveEncounter = (state: State) => {
+  let newEncounterList = state.myEncounterList;
+  state.myEncounterList.push(state.encounter);
   return {
     encounter: [],
-    myEncounterList: state.myEncounterList.concat(state.encounter),
+    myEncounterList: newEncounterList,
   };
 };
 
