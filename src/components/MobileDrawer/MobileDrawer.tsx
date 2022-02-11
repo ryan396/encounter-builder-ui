@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import { Button } from "@mui/material";
 
 const drawerBleeding = 56;
 
@@ -46,7 +47,9 @@ const MobileDrawer = ({ children, message }: any) => {
           },
         }}
       />
-
+      <Box sx={{ textAlign: "center", pt: 1 }}>
+        <Button onClick={toggleDrawer(true)}>Open</Button>
+      </Box>
       <SwipeableDrawer
         anchor="bottom"
         open={open}

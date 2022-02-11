@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useContext, useRef } from "react";
 import { EncounterCreationContext } from "../../context/EncounterCreationContext";
 import Monster from "../../types/Monster";
@@ -21,7 +21,9 @@ const EncounterList = () => {
       justifyContent="center"
       ref={componentRef}
     >
-      <button onClick={handlePrint}>Print this out!</button>
+      <Button variant="outlined" onClick={handlePrint}>
+        Print!
+      </Button>
       {state.myEncounterList.map((encounter: Monster[], i) => {
         return (
           <Grid item xs={12} lg={6} key={i}>

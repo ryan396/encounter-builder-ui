@@ -4,7 +4,7 @@ export default interface Monster {
   level: number;
   role: string;
   source: string;
-  page: string;
+  page: number;
   notes: string;
   type: string;
   quantity: number;
