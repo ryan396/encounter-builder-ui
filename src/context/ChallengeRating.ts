@@ -79,14 +79,17 @@ const monsters = [
 
 const calculateChallengeRating = (encounter: Monster[], grouplevel: number) => {
   let challengeRating = 0;
-  encounter.map((monster: Monster) => {
+  encounter.map((monster) => {
     const levelDifference = monster.level - grouplevel;
-    const index = challengeRatingTable.findIndex((row: ChallengeRating) => {
+    const index = challengeRatingTable.findIndex((row) => {
       return row.levelHigher === levelDifference;
     });
     if (index > -1) {
       const challengeRatingRow = challengeRatingTable[index];
-      console.log(challengeRatingRow);
+      const matchingSize = challengeRatingRow[monster.size.toLowerCase()];
+      if (matchingSize && typeof matchingSize === "number") {
+        challengeRating += matchingSize;
+      }
     } else {
       console.log("not found");
     }
@@ -94,4 +97,6 @@ const calculateChallengeRating = (encounter: Monster[], grouplevel: number) => {
   return challengeRating;
 };
 
-export { challengeRatingTable };
+console.log(calculateChallengeRating(monsters, 1));
+
+export { calculateChallengeRating };
