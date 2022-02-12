@@ -48,7 +48,9 @@ const MobileDrawer = ({ children, message }: any) => {
         }}
       />
       <Box sx={{ textAlign: "center", pt: 1 }}>
-        <Button onClick={toggleDrawer(true)}>Open</Button>
+        <Button variant="outlined" onClick={toggleDrawer(true)}>
+          Open Encounter
+        </Button>
       </Box>
       <SwipeableDrawer
         anchor="bottom"

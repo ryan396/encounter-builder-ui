@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { Button, IconButton, Snackbar } from "@mui/material";
+import { IconButton, Snackbar } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 const AlertContext = createContext({ openAlert: (message: string) => {} });
