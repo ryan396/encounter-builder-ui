@@ -52,32 +52,12 @@ const challengeRatingTable: ChallengeRating[] = [
     huge: 10,
   },
 ];
-const monsters = [
-  {
-    name: "Goblin Curse Victim",
-    size: "Normal",
-    level: 1,
-    role: "Mook",
-    type: "Humanoid",
-    source: "Strangle",
-    page: 22,
-    notes: "",
-    quantity: 0,
-  },
-  {
-    name: "Kobold Grand-Wizard",
-    size: "Normal",
-    level: 1,
-    role: "Mook",
-    type: "Humanoid",
-    source: "B 1",
-    page: 123,
-    notes: "",
-    quantity: 0,
-  },
-];
 
-const calculateChallengeRating = (encounter: Monster[], grouplevel: number) => {
+const calculateChallengeRating = (
+  encounter: Monster[],
+  grouplevel: number,
+  groupSize: number
+) => {
   let challengeRating = 0;
   encounter.map((monster) => {
     const levelDifference = monster.level - grouplevel;
@@ -88,15 +68,13 @@ const calculateChallengeRating = (encounter: Monster[], grouplevel: number) => {
       const challengeRatingRow = challengeRatingTable[index];
       const matchingSize = challengeRatingRow[monster.size.toLowerCase()];
       if (matchingSize && typeof matchingSize === "number") {
-        challengeRating += matchingSize;
+        challengeRating += matchingSize * monster.quantity;
       }
     } else {
       console.log("not found");
     }
   });
-  return challengeRating;
+  return challengeRating / groupSize;
 };
-
-console.log(calculateChallengeRating(monsters, 1));
 
 export { calculateChallengeRating };

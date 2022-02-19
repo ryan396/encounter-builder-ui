@@ -116,6 +116,7 @@ const Layout = () => {
               <Link
                 style={{ textDecoration: "none", color: "white" }}
                 to={page.path}
+                key={page.path}
               >
                 <Button
                   key={page.name}
