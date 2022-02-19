@@ -64,7 +64,7 @@ const MonsterCards = () => {
   return (
     <>
       <Grid container spacing={3}>
-        {state.encounter.map((monster: Monster) => {
+        {state.encounter.monsters.map((monster: Monster) => {
           return (
             <React.Fragment key={monster.name}>
               <Grid item lg={6} sm={6} xs={12}>

@@ -89,7 +89,11 @@ const EncounterCreation = () => {
 
             <Typography>
               Challenge Rating:{" "}
-              {calculateChallengeRating(state.encounter, partyLevel, partySize)}
+              {calculateChallengeRating(
+                state.encounter.monsters,
+                partyLevel,
+                partySize
+              )}
             </Typography>
           </CardContent>
           <CardActions>
@@ -103,7 +107,10 @@ const EncounterCreation = () => {
             </Button>
             <Button
               onClick={() => {
-                dispatch({ type: "saveEncounter" });
+                dispatch({
+                  type: "saveEncounter",
+                  payload: { partySize: partySize, partyLevel: partyLevel },
+                });
                 openAlert("Encounter saved");
               }}
             >
@@ -115,7 +122,9 @@ const EncounterCreation = () => {
           <MonsterCards />
         </Hidden>
         <Hidden lgUp>
-          <MobileDrawer message={`Encounter Size: ${state.encounter.length}`}>
+          <MobileDrawer
+            message={`Encounter Size: ${state.encounter.monsters.length}`}
+          >
             <MonsterCards />
           </MobileDrawer>
         </Hidden>

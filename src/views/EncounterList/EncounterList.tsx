@@ -24,11 +24,12 @@ const EncounterList = () => {
       <Button variant="outlined" onClick={handlePrint}>
         Print!
       </Button>
-      {state.myEncounterList.map((encounter: Monster[], i) => {
+      {state.myEncounterList.map((encounter: any, i) => {
         return (
           <Grid item xs={12} lg={6} key={i}>
             <Typography>Encounter {i + 1}</Typography>
-            <EncounterTable monsters={encounter} />
+            <Typography>Party Level: {encounter.partySize}</Typography>
+            <EncounterTable monsters={encounter.monsters} />
           </Grid>
         );
       })}

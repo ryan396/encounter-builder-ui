@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 import Monster from "../types/Monster";
 
-type encounter = Monster[];
+type encounter = { partyLevel: number; partySize: number; monsters: Monster[] };
 
 type State = {
   encounter: encounter;
@@ -14,18 +14,18 @@ type ContextValues = {
 };
 
 const initialEncounter: State = {
-  encounter: [],
+  encounter: { partyLevel: 1, partySize: 1, monsters: [] },
   myEncounterList: [],
 };
 
 const addMonster = (monster: Monster, state: State) => {
-  const selectedMonster = state.encounter.find(
+  const selectedMonster = state.encounter.monsters.find(
     (item: Monster) => item.name === monster.name
   );
   let newState = state.encounter;
   if (!selectedMonster) {
     monster.quantity = 1;
-    newState = state.encounter.concat(monster);
+    newState.monsters = state.encounter.monsters.concat(monster);
   } else {
     selectedMonster.quantity++;
   }
@@ -33,13 +33,15 @@ const addMonster = (monster: Monster, state: State) => {
 };
 
 const removeMonster = (monster: Monster, state: State) => {
-  let index = state.encounter.findIndex((item) => item.name == monster.name);
-  state.encounter.splice(index, 1);
+  let index = state.encounter.monsters.findIndex(
+    (item) => item.name == monster.name
+  );
+  state.encounter.monsters.splice(index, 1);
   return { encounter: state.encounter, myEncounterList: state.myEncounterList };
 };
 
 const increment = (monster: Monster, state: State) => {
-  const selectedMonster = state.encounter.find(
+  const selectedMonster = state.encounter.monsters.find(
     (item) => item.name === monster.name
   );
   selectedMonster && selectedMonster.quantity++;
@@ -47,27 +49,32 @@ const increment = (monster: Monster, state: State) => {
 };
 
 const decrement = (monster: Monster, state: State) => {
-  const selectedMonster = state.encounter.find(
+  const selectedMonster = state.encounter.monsters.find(
     (item) => item.name === monster.name
   );
   if (selectedMonster) {
     if (selectedMonster.quantity > 1) {
       selectedMonster.quantity--;
     } else {
-      let index = state.encounter.findIndex(
+      let index = state.encounter.monsters.findIndex(
         (item) => item.name == monster.name
       );
-      state.encounter.splice(index, 1);
+      state.encounter.monsters.splice(index, 1);
     }
   }
   return { encounter: state.encounter, myEncounterList: state.myEncounterList };
 };
 
-const saveEncounter = (state: State) => {
+const saveEncounter = (
+  partyInfo: { partyLevel: number; partySize: number },
+  state: State
+) => {
+  state.encounter.partyLevel = partyInfo.partyLevel;
+  state.encounter.partySize = partyInfo.partySize;
   let newEncounterList = state.myEncounterList;
   state.myEncounterList.push(state.encounter);
   return {
-    encounter: [],
+    encounter: { ...initialEncounter.encounter },
     myEncounterList: newEncounterList,
   };
 };
@@ -76,6 +83,7 @@ const reset = () => {
   return initialEncounter;
 };
 
+// to do: build reducer for adjusting partylevel and size
 const reducer = (state: State, action: any) => {
   switch (action.type) {
     case "addMonster":
@@ -87,7 +95,7 @@ const reducer = (state: State, action: any) => {
     case "decrement":
       return decrement(action.payload, state);
     case "saveEncounter":
-      return saveEncounter(state);
+      return saveEncounter(action.payload, state);
     case "reset":
       return reset();
     default:
