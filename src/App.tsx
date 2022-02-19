@@ -1,8 +1,8 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./layout";
-import EncounterCreation from "./pages/EncounterCreation";
-import EncounterList from "./pages/EncounterList";
+import Layout from "./views/Layout";
+import EncounterCreation from "./views/EncounterCreation";
+import EncounterList from "./views/EncounterList";
 import { EncounterCreationProvider } from "./context/EncounterCreationContext";
 import { AlertContextProvider } from "./context/AlertContext";
 

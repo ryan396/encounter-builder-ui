@@ -74,7 +74,9 @@ const calculateChallengeRating = (
       console.log("not found");
     }
   });
-  return challengeRating / groupSize;
+  const adjustedForGroup = challengeRating / groupSize;
+  const finalRating = Math.round(adjustedForGroup * 10) / 10;
+  return finalRating;
 };
 
 export { calculateChallengeRating };

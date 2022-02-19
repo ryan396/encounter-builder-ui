@@ -8,9 +8,8 @@ import {
   CardActions,
   Button,
   Slider,
-  Input,
 } from "@mui/material";
-import { useState, useContext, ChangeEventHandler } from "react";
+import { useState, useContext } from "react";
 import MonsterTable from "./MonsterTable";
 import SearchIcon from "@mui/icons-material/Search";
 import { monsters } from "./Monsters";
@@ -67,20 +66,27 @@ const EncounterCreation = () => {
       <Grid item lg={6} xs={12}>
         <Card sx={{ textAlign: "left", mb: 3 }}>
           <CardContent>
-            <Typography gutterBottom>Party Level: {partyLevel}</Typography>
-            <Slider
-              value={typeof partyLevel === "number" ? partyLevel : 0}
-              min={1}
-              max={9}
-              onChange={handlePartyLevelChange}
-            />
-            <Typography gutterBottom>Party Size: {partySize}</Typography>
-            <Slider
-              value={typeof partySize === "number" ? partySize : 0}
-              min={1}
-              max={12}
-              onChange={handlePartySizeChange}
-            />
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Party Level: {partyLevel}</Typography>
+                <Slider
+                  value={typeof partyLevel === "number" ? partyLevel : 0}
+                  min={1}
+                  max={9}
+                  onChange={handlePartyLevelChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Party Size: {partySize}</Typography>
+                <Slider
+                  value={typeof partySize === "number" ? partySize : 0}
+                  min={1}
+                  max={12}
+                  onChange={handlePartySizeChange}
+                />
+              </Grid>
+            </Grid>
+
             <Typography>
               Challenge Rating:{" "}
               {calculateChallengeRating(state.encounter, partyLevel, partySize)}
