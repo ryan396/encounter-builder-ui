@@ -63,6 +63,8 @@ const calculateChallengeRating = (
     const index = challengeRatingTable.findIndex((row) => {
       return row.levelHigher === levelDifference;
     });
+    // to do: if more than 2 levels below don't count challenge rating
+    // if more than 4 levels above set challenge rating really high and call encounter "extreme"
     if (index > -1) {
       const challengeRatingRow = challengeRatingTable[index];
       const matchingSize = challengeRatingRow[monster.size.toLowerCase()];

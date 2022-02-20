@@ -88,7 +88,7 @@ const EncounterCreation = () => {
             </Grid>
 
             <Typography>
-              Challenge Rating:
+              Challenge Rating:{" "}
               {calculateChallengeRating(
                 state.encounter.monsters,
                 partyLevel,
@@ -131,14 +131,16 @@ const EncounterCreation = () => {
       </Grid>
       <Grid item lg={6} xs={12}>
         <Grid container>
-          <TextField
-            sx={{ mb: 2 }}
-            placeholder="search by name..."
-            InputProps={{
-              startAdornment: <SearchIcon sx={{ mr: 2, color: "gray" }} />,
-            }}
-            onChange={(e) => requestSearch(e.target.value)}
-          />
+          <Grid item lg={4} xs={12}>
+            <TextField
+              sx={{ mb: 2, width: "100%" }}
+              placeholder="search by name..."
+              InputProps={{
+                startAdornment: <SearchIcon sx={{ mr: 2, color: "gray" }} />,
+              }}
+              onChange={(e) => requestSearch(e.target.value)}
+            />
+          </Grid>
           <Hidden smDown>
             <MonsterTable monsters={rows} />
           </Hidden>

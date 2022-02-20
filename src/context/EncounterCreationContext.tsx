@@ -17,7 +17,7 @@ const addMonster = (monster: Monster, state: State) => {
 
 const removeMonster = (monster: Monster, state: State) => {
   let index = state.encounter.monsters.findIndex(
-    (item) => item.name == monster.name
+    (item) => item.name === monster.name
   );
   state.encounter.monsters.splice(index, 1);
   return { encounter: state.encounter, myEncounterList: state.myEncounterList };
@@ -40,7 +40,7 @@ const decrement = (monster: Monster, state: State) => {
       selectedMonster.quantity--;
     } else {
       let index = state.encounter.monsters.findIndex(
-        (item) => item.name == monster.name
+        (item) => item.name === monster.name
       );
       state.encounter.monsters.splice(index, 1);
     }
@@ -57,14 +57,14 @@ const saveEncounter = (
   let newEncounterList = [...state.myEncounterList];
   newEncounterList.push(state.encounter);
   return {
-    encounter: { ...initialEncounter.encounter },
-    myEncounterList: newEncounterList,
+    encounter: { partyLevel: 0, partySize: 0, monsters: [] },
+    myEncounterList: [...newEncounterList],
   };
 };
 
 const reset = (state: State) => {
   return {
-    encounter: { ...initialEncounter.encounter },
+    encounter: { partyLevel: 0, partySize: 0, monsters: [] },
     myEncounterList: state.myEncounterList,
   };
 };
