@@ -28,10 +28,8 @@ const EncounterTable = ({ monsters }: Props) => {
             <StyledTableCell align="right">Role</StyledTableCell>
             <StyledTableCell align="right">Size</StyledTableCell>
             <StyledTableCell align="right">Type</StyledTableCell>
-            <Hidden smDown>
-              <StyledTableCell align="right">Source</StyledTableCell>
-              <StyledTableCell align="right">Page</StyledTableCell>
-            </Hidden>
+            <StyledTableCell align="right">Source</StyledTableCell>
+            <StyledTableCell align="right">Page</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

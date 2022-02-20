@@ -131,7 +131,7 @@ const EncounterCreation = () => {
       </Grid>
       <Grid item lg={6} xs={12}>
         <Grid container>
-          <Grid item lg={4} xs={12}>
+          <Grid item lg={6} xs={12}>
             <TextField
               sx={{ mb: 2, width: "100%" }}
               placeholder="search by name..."
