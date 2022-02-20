@@ -1,22 +1,5 @@
 import { createContext, useReducer } from "react";
-import Monster from "../types/Monster";
-
-type encounter = { partyLevel: number; partySize: number; monsters: Monster[] };
-
-type State = {
-  encounter: encounter;
-  myEncounterList: encounter[];
-};
-
-type ContextValues = {
-  state: State;
-  dispatch: React.Dispatch<any>;
-};
-
-const initialEncounter: State = {
-  encounter: { partyLevel: 1, partySize: 1, monsters: [] },
-  myEncounterList: [],
-};
+import { Monster, ContextValues, initialEncounter, State } from "./Types";
 
 const addMonster = (monster: Monster, state: State) => {
   const selectedMonster = state.encounter.monsters.find(
@@ -71,16 +54,19 @@ const saveEncounter = (
 ) => {
   state.encounter.partyLevel = partyInfo.partyLevel;
   state.encounter.partySize = partyInfo.partySize;
-  let newEncounterList = state.myEncounterList;
-  state.myEncounterList.push(state.encounter);
+  let newEncounterList = [...state.myEncounterList];
+  newEncounterList.push(state.encounter);
   return {
     encounter: { ...initialEncounter.encounter },
     myEncounterList: newEncounterList,
   };
 };
 
-const reset = () => {
-  return initialEncounter;
+const reset = (state: State) => {
+  return {
+    encounter: { ...initialEncounter.encounter },
+    myEncounterList: state.myEncounterList,
+  };
 };
 
 // to do: build reducer for adjusting partylevel and size
@@ -97,7 +83,7 @@ const reducer = (state: State, action: any) => {
     case "saveEncounter":
       return saveEncounter(action.payload, state);
     case "reset":
-      return reset();
+      return reset(state);
     default:
       throw new Error();
   }

@@ -16,7 +16,7 @@ import {
   Table,
   TableCell,
 } from "@mui/material";
-import Monster from "../../types/Monster";
+import { Monster } from "../../context/Types";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { EncounterCreationContext } from "../../context/EncounterCreationContext";
 import { AlertContext } from "../../context/AlertContext";

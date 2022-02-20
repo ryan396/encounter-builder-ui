@@ -1,4 +1,4 @@
-import Monster from "../../types/Monster";
+import { Monster } from "../../context/Types";
 import {
   Box,
   Card,

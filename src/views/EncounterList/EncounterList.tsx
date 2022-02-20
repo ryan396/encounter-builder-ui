@@ -1,12 +1,14 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useContext, useRef } from "react";
 import { EncounterCreationContext } from "../../context/EncounterCreationContext";
-import Monster from "../../types/Monster";
 import EncounterTable from "./EncounterTable";
 import { useReactToPrint } from "react-to-print";
+import { calculateChallengeRating } from "../../context/ChallengeRating";
+import "./EncounterListStyles.css";
+import { Encounter } from "../../context/Types";
 
 const EncounterList = () => {
-  const { state, dispatch } = useContext(EncounterCreationContext);
+  const { state } = useContext(EncounterCreationContext);
   const componentRef = useRef(null);
 
   const handlePrint = useReactToPrint({
@@ -20,15 +22,31 @@ const EncounterList = () => {
       alignItems="center"
       justifyContent="center"
       ref={componentRef}
+      spacing={1}
     >
       <Button variant="outlined" onClick={handlePrint}>
         Print!
       </Button>
-      {state.myEncounterList.map((encounter: any, i) => {
+      {state.myEncounterList.map((encounter: Encounter, i) => {
         return (
           <Grid item xs={12} lg={6} key={i}>
-            <Typography>Encounter {i + 1}</Typography>
-            <Typography>Party Level: {encounter.partySize}</Typography>
+            <Grid container component={Paper}>
+              <Typography className="Typography">Encounter {i + 1}</Typography>
+              <Typography className="Typography">
+                Party Size: {encounter.partySize}
+              </Typography>
+              <Typography className="Typography">
+                Party Level: {encounter.partyLevel}
+              </Typography>
+              <Typography className="Typography">
+                CR:{" "}
+                {calculateChallengeRating(
+                  encounter.monsters,
+                  encounter.partyLevel,
+                  encounter.partySize
+                )}
+              </Typography>
+            </Grid>
             <EncounterTable monsters={encounter.monsters} />
           </Grid>
         );

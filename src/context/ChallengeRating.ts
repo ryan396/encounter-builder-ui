@@ -1,5 +1,4 @@
-import ChallengeRating from "../types/ChallengeRating";
-import Monster from "../types/Monster";
+import { ChallengeRating, Monster } from "./Types";
 
 const challengeRatingTable: ChallengeRating[] = [
   {

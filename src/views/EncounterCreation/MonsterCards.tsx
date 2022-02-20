@@ -1,4 +1,4 @@
-import Monster from "../../types/Monster";
+import { Monster } from "../../context/Types";
 import { useContext } from "react";
 import {
   Box,
@@ -8,59 +8,14 @@ import {
   CardActions,
   Grid,
   Typography,
-  TextField,
-  IconButton,
 } from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { EncounterCreationContext } from "../../context/EncounterCreationContext";
 import React from "react";
-
-interface QuantityInputProps {
-  monster: Monster;
-}
+import { QuantityInput } from "./QuantityInput";
 
 const MonsterCards = () => {
   const { state, dispatch } = useContext(EncounterCreationContext);
 
-  const QuantityInput = ({ monster }: QuantityInputProps) => {
-    return (
-      <React.Fragment>
-        <TextField
-          variant="standard"
-          defaultValue={monster.quantity}
-          inputProps={{
-            min: 0,
-            sx: { textAlign: "center" },
-          }}
-          InputProps={{
-            disableUnderline: true,
-            startAdornment: (
-              <IconButton
-                color="secondary"
-                onClick={() =>
-                  dispatch({ type: "decrement", payload: monster })
-                }
-              >
-                <RemoveCircleOutlineIcon />
-              </IconButton>
-            ),
-            endAdornment: (
-              <IconButton
-                color="primary"
-                sx={{ mr: "auto" }}
-                onClick={() =>
-                  dispatch({ type: "increment", payload: monster })
-                }
-              >
-                <AddCircleOutlineIcon />
-              </IconButton>
-            ),
-          }}
-        />
-      </React.Fragment>
-    );
-  };
   return (
     <>
       <Grid container spacing={3}>

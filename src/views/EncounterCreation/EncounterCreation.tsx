@@ -13,7 +13,7 @@ import { useState, useContext } from "react";
 import MonsterTable from "./MonsterTable";
 import SearchIcon from "@mui/icons-material/Search";
 import { monsters } from "./Monsters";
-import Monster from "../../types/Monster";
+import { Monster } from "../../context/Types";
 import MonsterCards from "./MonsterCards";
 import { EncounterCreationContext } from "../../context/EncounterCreationContext";
 import MobileDrawer from "../../components/MobileDrawer";
@@ -88,7 +88,7 @@ const EncounterCreation = () => {
             </Grid>
 
             <Typography>
-              Challenge Rating:{" "}
+              Challenge Rating:
               {calculateChallengeRating(
                 state.encounter.monsters,
                 partyLevel,

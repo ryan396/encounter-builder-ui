@@ -11,7 +11,7 @@ import {
   StyledTableCell,
   StyledTableRow,
 } from "../../components/TableElements";
-import Monster from "../../types/Monster";
+import { Monster } from "../../context/Types";
 
 interface Props {
   monsters: Monster[];
